@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>XXI PLUS – From Cinema to Screen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- PWA / MOBILE META -->
+  <meta name="theme-color" content="#050509" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="XXI PLUS" />
+
+  <!-- ICONS (GANTI DENGAN LOGO KAMU) -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/xxi-192.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/xxi-192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="icons/xxi-512.png" />
+
+  <!-- MANIFEST UNTUK PWA -->
+  <link rel="manifest" href="manifest.webmanifest" />
+
+  <style>
+    /* === CSS ASLI KAMU (TIDAK KUUBAH) === */
+    :root {
+      --bg-main: #050509;
+      --bg-card: #111119;
+      --bg-card-soft: #181822;
+      --accent: #f5c451;
+      --accent-soft: rgba(245, 196, 81, 0.12);
+      --text-main: #f5f5f5;
+      --text-muted: #a0a0b5;
+      --border-soft: rgba(255,255,255,0.08);
+      --danger: #e74c3c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #181828 0, #050509 40%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px 40px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo-img {
+      height: 30px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(0,0,0,0.7));
+    }
+
+    .xxi-plus-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: radial-gradient(circle at top left, rgba(245,196,81,0.18) 0, transparent 65%);
+      white-space: nowrap;
+    }
+
+    .brand-text-main {
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.18em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    .nav-link {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .nav-link.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), #ffffff);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 8px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-outline {
+      border-color: var(--border-soft);
+    }
+
+    .btn-primary {
+      border-color: var(--accent);
+      background: radial-gradient(circle at top left, #ffe9a1 0, var(--accent) 40%, #c1871d 100%);
+      color: #000;
+      font-weight: 600;
+      box-shadow: 0 0 16px rgba(245, 196, 81, 0.4);
+    }
+
+    .btn-primary span.icon {
+      font-size: 14px;
+      margin-left: 2px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.15;
+      font-weight: 650;
+      margin-bottom: 12px;
+    }
+
+    .hero-highlight {
+      background: radial-gradient(circle at top left, var(--accent-soft), transparent 55%);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(245,196,81,0.18);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-highlight-pill {
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(245,196,81,0.4);
+      color: var(--accent);
+      letter-spacing: 0.18em;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .hero-meta strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-preview {
+      background: linear-gradient(145deg, #181822, #06060a);
+      border-radius: 22px;
+      padding: 16px 16px 14px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-preview-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      background: rgba(0,0,0,0.4);
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(6px);
+    }
+
+    .preview-poster {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      height: 180px;
+      background: radial-gradient(circle at top, #ffe9a1 0, #bd8f36 25%, #3a2b15 60%, #050509 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-poster::after {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: -20%;
+      width: 80%;
+      height: 120%;
+      background: radial-gradient(circle at right, rgba(255,255,255,0.28) 0, transparent 55%);
+      opacity: 0.8;
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+
+    .preview-film-title {
+      position: relative;
+      z-index: 1;
+      font-weight: 600;
+      font-size: 16px;
+      max-width: 62%;
+    }
+
+    .preview-film-meta {
+      position: relative;
+      z-index: 1;
+      font-size: 11px;
+      text-align: right;
+      color: #fcefc7;
+    }
+
+    .preview-film-meta span {
+      display: block;
+    }
+
+    .preview-bottom {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .preview-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .preview-tagline strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .preview-mini-pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px solid rgba(255,255,255,0.14);
+      letter-spacing: 0.18em;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .section-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .movie-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(130px, 160px);
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .movie-row::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .movie-row::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .movie-row::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+    }
+
+    .movie-card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s ease-out;
+      position: relative;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.65);
+      border-color: rgba(245,196,81,0.35);
+    }
+
+    .movie-poster {
+      height: 190px;
+      background: radial-gradient(circle at top, #444466 0, #15151f 50%, #050509 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .movie-poster::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent 55%);
+    }
+
+    .movie-poster-label {
+      position: relative;
+      z-index: 1;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #f5f5f5;
+      opacity: 0.85;
+    }
+
+    .movie-poster-title {
+      position: relative;
+      z-index: 1;
+      font-weight: 600;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .movie-poster-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(245,196,81,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .movie-info {
+      padding: 8px 10px 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .movie-info span {
+      white-space: nowrap;
+    }
+
+    .movie-pill {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 3px 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .producer-card {
+      margin-top: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      padding: 12px 14px;
+      background: radial-gradient(circle at left, rgba(245,196,81,0.14) 0, transparent 60%);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .producer-card strong {
+      color: var(--accent);
+    }
+
+    .producer-card small {
+      display: block;
+      margin-top: 4px;
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 16px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      background: #080810;
+      border-radius: 18px;
+      max-width: 780px;
+      width: 100%;
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      overflow: hidden;
+    }
+
+    .modal-poster {
+      position: relative;
+      background: radial-gradient(circle at top, #ffe9a1 0, #bd8f36 25%, #3a2b15 60%, #050509 100%);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .modal-poster::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top right, rgba(0,0,0,0.65), transparent 45%);
+    }
+
+    .modal-poster-inner {
+      position: relative;
+      z-index: 1;
+      color: #fef7e6;
+    }
+
+    .modal-poster-title {
+      font-size: 20px;
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+
+    .modal-poster-meta {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .modal-chip {
+      position: relative;
+      z-index: 1;
+      align-self: flex-start;
+      margin-top: 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px solid rgba(255,255,255,0.7);
+      letter-spacing: 0.16em;
+    }
+
+    .modal-projection {
+      position: relative;
+      z-index: 1;
+      font-size: 11px;
+      margin-top: 12px;
+      opacity: 0.92;
+    }
+
+    .modal-body {
+      padding: 14px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-top-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .modal-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .modal-desc {
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .modal-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--text-muted);
+    }
+
+    .modal-cta-row {
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .price-badge {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text-muted);
+    }
+
+    .disclaimer {
+      margin-top: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-preview {
+        order: -1;
+      }
+      .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 14px 14px 28px;
+      }
+      .movie-row {
+        grid-auto-columns: minmax(120px, 140px);
+      }
+      .modal {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .modal-body {
+        padding: 12px 12px 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 22px;
+      }
+      .hero-subtitle {
+        font-size: 13px;
+      }
+      .producer-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-logos">
+          <!-- GANTI src INI DENGAN LOGO MU -->
+          <img src="logo-cinema-xxi.png" alt="Cinema XXI" class="brand-logo-img" />
+          <span class="xxi-plus-badge">XXI PLUS</span>
+        </div>
+        <div>
+          <div class="brand-text-main">XXI PLUS</div>
+          <div class="brand-text-sub">FROM CINEMA TO SCREEN</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <div class="nav-link active">Home</div>
+        <div class="nav-link">Originals</div>
+        <div class="nav-link">For Producers</div>
+        <div class="nav-link">Help</div>
+      </div>
+      <div class="nav-cta">
+        <button class="btn btn-outline">Masuk</button>
+        <button class="btn btn-primary">
+          Mulai Nonton
+          <span class="icon">▶</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-eyebrow">Inovasi Cinema XXI</div>
+        <h1 class="hero-title">
+          Dari layar lebar ke layar pribadi, <br />masih dalam ekosistem XXI.
+        </h1>
+
+        <div class="hero-highlight">
+          <span class="hero-highlight-pill">Eksklusif Pasca Bioskop</span>
+          <span>Film favorit Anda hadir kembali 30 hari setelah turun layar — legal, premium, dan resmi dari Cinema XXI.</span>
+        </div>
+
+        <p class="hero-subtitle">
+          <strong>XXI PLUS</strong> adalah platform OTT resmi Cinema XXI, menghadirkan koleksi film Indonesia dan internasional setelah selesai tayang di bioskop. Satu ekosistem terpadu untuk penonton & produser.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="btnLihatKatalog">
+            Lihat katalog eksklusif
+            <span class="icon">▾</span>
+          </button>
+          <button class="btn btn-outline">
+            Demo untuk produser
+          </button>
+        </div>
+
+        <div class="hero-meta">
+          <span><strong>+50 juta</strong> penonton bioskop / tahun</span>
+          <span><strong>1 platform</strong> dari tiket hingga streaming</span>
+        </div>
+      </div>
+
+      <div class="hero-preview">
+        <div class="hero-preview-badge">Finalis XXI Innovation Day – Prototype</div>
+        <div class="preview-poster">
+          <div class="preview-film-title">
+            Malam Terakhir di Bioskop
+          </div>
+          <div class="preview-film-meta">
+            <span>XXI PLUS Premiere</span>
+            <span>Eksklusif 30 hari</span>
+          </div>
+        </div>
+        <div class="preview-bottom">
+          <div class="preview-tagline">
+            Streaming hanya di <strong>XXI PLUS</strong><br />
+            setelah turun dari layar bioskop Cinema XXI.
+          </div>
+          <div class="preview-mini-pill">
+            Cinema &amp; OTT Terintegrasi
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 1: LANJUTKAN MENONTON -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Lanjutkan Menonton</h2>
+        <p class="section-subtitle">Contoh daftar film yang sudah pernah ditonton pengguna.</p>
+      </div>
+      <div class="movie-row" id="rowContinue"></div>
+    </section>
+
+    <!-- ROW 2: DARI LAYAR BIOSKOP XXI -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Baru Turun dari Bioskop XXI</h2>
+        <p class="section-subtitle">Window eksklusif 30–90 hari hanya di XXI PLUS sebelum tayang di platform lain.</p>
+      </div>
+      <div class="movie-row" id="rowExclusive"></div>
+
+      <div class="producer-card">
+        <div>
+          <strong>Untuk Produser & Pemilik Konten</strong>
+          <small>XXI PLUS menjadi etalase resmi setelah bioskop, dengan laporan performa, revenue sharing transparan, dan kontrol penuh atas jendela distribusi.</small>
+        </div>
+        <button class="btn btn-outline">
+          Lihat dashboard produser
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>XXI PLUS – CONCEPT PROTOTYPE</span>
+      <span>Made for XXI Innovation Day</span>
+    </footer>
+  </div>
+
+  <!-- MODAL DETAIL FILM -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-poster" id="modalPoster">
+        <div class="modal-poster-inner">
+          <div class="modal-label">XXI PLUS Premiere</div>
+          <div class="modal-poster-title" id="modalTitle">Judul Film</div>
+          <div class="modal-poster-meta" id="modalMeta">2025 • 110 menit • Drama</div>
+          <div class="modal-projection" id="modalProjection">
+            Dari layar bioskop Cinema XXI, kini hadir kembali secara eksklusif di platform streaming resmi XXI PLUS.
+          </div>
+        </div>
+        <div class="modal-chip" id="modalWindow">Eksklusif 45 hari</div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-top-row">
+          <div>
+            <div class="modal-label">Sinopsis Singkat</div>
+            <p class="modal-desc" id="modalSynopsis">
+              Sinopsis film akan muncul di sini.
+            </p>
+          </div>
+          <button class="modal-close" id="modalClose" aria-label="Tutup">×</button>
+        </div>
+
+        <div class="modal-meta-row" id="modalMoreMeta">
+          <!-- Filled by JS -->
+        </div>
+
+        <div class="modal-cta-row">
+          <button class="btn btn-primary" id="modalWatchBtn">
+            Tonton sekarang
+            <span class="icon">▶</span>
+          </button>
+          <button class="btn btn-outline">
+            Tambah ke daftar saya
+          </button>
+          <span class="price-badge" id="modalPrice">Sewa 48 jam · Rp 39.000</span>
+        </div>
+        <p class="disclaimer">
+          *Seluruh konten pada demo ini adalah contoh konsep. Lisensi dan hak tayang mengikuti perjanjian resmi dengan produser dan studio.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // DATA DEMO
+    const movies = [
+      {
+        id: 1,
+        title: "Malam Terakhir di Bioskop",
+        label: "Film Indonesia",
+        windowLabel: "Eksklusif 45 hari",
+        synopsis: "Di tengah ancaman penutupan bioskop kota, seorang manajer muda berjuang mempertahankan layar terakhir sambil menghadapi masa lalunya.",
+        year: 2025,
+        duration: "112 menit",
+        genre: "Drama",
+        tag: "XXI PLUS Premiere",
+        price: "Sewa 48 jam · Rp 39.000",
+        type: "exclusive",
+        meta: ["Format HD & 4K", "Tersedia subtitle", "Bisa diunduh*"],
+        color: "#bd8f36"
+      },
+      {
+        id: 2,
+        title: "Midnight Subway",
+        label: "International Selection",
+        windowLabel: "XXI PLUS 30 hari",
+        synopsis: "Seorang komuter malam menyadari setiap kereta terakhir membawanya ke versi berbeda dari hidupnya.",
+        year: 2024,
+        duration: "98 menit",
+        genre: "Thriller / Sci-Fi",
+        tag: "Festival Favorite",
+        price: "Sewa 72 jam · Rp 49.000",
+        type: "exclusive",
+        meta: ["Festival Choice", "Audio 5.1", "Behind-the-scenes"],
+        color: "#3b82f6"
+      },
+      {
+        id: 3,
+        title: "Senandung Kota Hujan",
+        label: "Film Indonesia",
+        windowLabel: "Eksklusif 60 hari",
+        synopsis: "Seorang musisi jalanan dan seorang barista membangun mimpi di tengah hiruk-pikuk kota yang tak pernah benar-benar kering dari hujan.",
+        year: 2024,
+        duration: "106 menit",
+        genre: "Romansa / Musik",
+        tag: "Layar Lebar ke Layar Pribadi",
+        price: "Termasuk paket langganan",
+        type: "continue",
+        meta: ["Playlist original", "Mode sing-along", "Audio stereo"],
+        color: "#ec4899"
+      },
+      {
+        id: 4,
+        title: "Kode Rahasia XXI",
+        label: "Original Series",
+        windowLabel: "Episode baru tiap Jumat",
+        synopsis: "Serial bergenre misteri tentang tim teknis XXI yang menemukan pesan tersembunyi di server lama jaringan bioskop.",
+        year: 2025,
+        duration: "8 episode",
+        genre: "Misteri / Teknologi",
+        tag: "XXI PLUS Original Series",
+        price: "Khusus pelanggan premium",
+        type: "continue",
+        meta: ["Series", "Multi device", "Notifikasi episode baru"],
+        color: "#22c55e"
+      },
+      {
+        id: 5,
+        title: "Langkah Pertama",
+        label: "Film Indonesia",
+        windowLabel: "Eksklusif 30 hari",
+        synopsis: "Kisah atlet muda dari daerah yang mendapat kesempatan tampil di tingkat nasional, tapi harus memilih antara keluarga atau mimpi.",
+        year: 2023,
+        duration: "104 menit",
+        genre: "Drama / Olahraga",
+        tag: "XXI PLUS Premiere",
+        price: "Sewa 48 jam · Rp 29.000",
+        type: "exclusive",
+        meta: ["Keluarga", "Inspiratif", "HD ready"],
+        color: "#f97316"
+      }
+    ];
+
+    function createMovieCard(movie) {
+      const card = document.createElement("article");
+      card.className = "movie-card";
+      card.dataset.id = movie.id;
+
+      card.innerHTML = `
+        <div class="movie-poster">
+          <div class="movie-poster-badge">${movie.tag}</div>
+          <div class="movie-poster-label">${movie.label}</div>
+          <div class="movie-poster-title">${movie.title}</div>
+        </div>
+        <div class="movie-info">
+          <div>${movie.year} • ${movie.genre}</div>
+          <span class="movie-pill">${movie.windowLabel}</span>
+        </div>
+      `;
+
+      const poster = card.querySelector(".movie-poster");
+      poster.style.background = `radial-gradient(circle at top, ${movie.color} 0, #15151f 40%, #050509 100%)`;
+
+      card.addEventListener("click", () => {
+        openModal(movie);
+      });
+
+      return card;
+    }
+
+    function renderRows() {
+      const rowContinue = document.getElementById("rowContinue");
+      const rowExclusive = document.getElementById("rowExclusive");
+      rowContinue.innerHTML = "";
+      rowExclusive.innerHTML = "";
+
+      movies
+        .filter((m) => m.type === "continue")
+        .forEach((m) => rowContinue.appendChild(createMovieCard(m)));
+
+      movies
+        .filter((m) => m.type === "exclusive")
+        .forEach((m) => rowExclusive.appendChild(createMovieCard(m)));
+    }
+
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalMeta = document.getElementById("modalMeta");
+    const modalSynopsis = document.getElementById("modalSynopsis");
+    const modalWindow = document.getElementById("modalWindow");
+    const modalMoreMeta = document.getElementById("modalMoreMeta");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalClose = document.getElementById("modalClose");
+    const modalPoster = document.getElementById("modalPoster");
+    const modalWatchBtn = document.getElementById("modalWatchBtn");
+
+    function openModal(movie) {
+      modalTitle.textContent = movie.title;
+      modalMeta.textContent = `${movie.year} • ${movie.duration} • ${movie.genre}`;
+      modalSynopsis.textContent = movie.synopsis;
+      modalWindow.textContent = movie.windowLabel;
+      modalPrice.textContent = movie.price;
+
+      modalPoster.style.background = `radial-gradient(circle at top, ${movie.color} 0, #3a2b15 40%, #050509 100%)`;
+
+      modalMoreMeta.innerHTML = "";
+      const metaItems = movie.meta || [];
+      metaItems.forEach((item, idx) => {
+        const span = document.createElement("span");
+        span.textContent = item;
+        if (idx > 0) {
+          const dot = document.createElement("div");
+          dot.className = "dot";
+          modalMoreMeta.appendChild(dot);
+        }
+        modalMoreMeta.appendChild(span);
+      });
+
+      modalBackdrop.classList.add("show");
+
+      modalWatchBtn.onclick = () => {
+        alert("Di versi produksi, tombol ini akan membawa ke halaman pemutar video dengan DRM resmi XXI PLUS.");
+      };
+    }
+
+    function closeModal() {
+      modalBackdrop.classList.remove("show");
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target === modalBackdrop) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    const btnLihatKatalog = document.getElementById("btnLihatKatalog");
+    btnLihatKatalog.addEventListener("click", () => {
+      const section = document.getElementById("rowExclusive");
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    renderRows();
+
+    // REGISTER SERVICE WORKER UNTUK PWA (kalau di-host HTTPS)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>

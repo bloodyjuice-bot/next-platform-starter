@@ -1,0 +1,20 @@
+{
+  "name": "XXI PLUS – From Cinema to Screen",
+  "short_name": "XXI PLUS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050509",
+  "theme_color": "#050509",
+  "icons": [
+    {
+      "src": "icons/xxi-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/xxi-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
